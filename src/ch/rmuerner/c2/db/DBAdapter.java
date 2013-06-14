@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import ch.rmuerner.c2.db.dao.AbstractDAO;
-import ch.rmuerner.c2.db.dao.CompetitorDAO;
+import ch.rmuerner.c2.db.dao.H2CompetitorDAO;
 import ch.rmuerner.c2.db.dto.AbstractDTO;
 
 public class DBAdapter {
@@ -19,7 +19,7 @@ public class DBAdapter {
 	private static String password = "";
 	
 	// DAO
-	private CompetitorDAO competitorDAO;
+	private H2CompetitorDAO competitorDAO;
 
 	private DBAdapter() {
 	};
@@ -31,9 +31,9 @@ public class DBAdapter {
 		return instance;
 	}
 	
-	public CompetitorDAO getCompetitorDAO(){
+	public H2CompetitorDAO getCompetitorDAO(){
 		if(competitorDAO == null){
-			competitorDAO = new CompetitorDAO(this);
+			competitorDAO = new H2CompetitorDAO(this);
 		}
 		return competitorDAO;
 	}
@@ -45,10 +45,10 @@ public class DBAdapter {
 
 	public void initDB() {
 		// Drop all
-		executeQuery(CompetitorDAO.getDropStatement());
+		executeQuery(H2CompetitorDAO.getDropStatement());
 		
 		// Create all
-		executeQuery(CompetitorDAO.getCreateStatement());
+		executeQuery(H2CompetitorDAO.getCreateStatement());
 	}
 	
 	private void executeQuery(String query){
