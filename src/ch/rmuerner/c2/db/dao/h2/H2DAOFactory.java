@@ -1,8 +1,14 @@
-package ch.rmuerner.c2.db.dao;
+package ch.rmuerner.c2.db.dao.h2;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+
+import ch.rmuerner.c2.db.dao.CategoryDAO;
+import ch.rmuerner.c2.db.dao.CompetitionDAO;
+import ch.rmuerner.c2.db.dao.CompetitorDAO;
+import ch.rmuerner.c2.db.dao.DAOFactory;
+import ch.rmuerner.c2.db.dao.TableauDAO;
 
 public class H2DAOFactory extends DAOFactory {
 
@@ -27,7 +33,7 @@ public class H2DAOFactory extends DAOFactory {
 	}
 	@Override
 	public CompetitionDAO getCompetitionDAO() {
-		return null;
+		return new H2CompetitionDAO();
 	}
 
 	@Override
@@ -46,5 +52,13 @@ public class H2DAOFactory extends DAOFactory {
 	public TableauDAO getTableauDAO() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void initDatabase(){
+		// Drop all
+		getCompetitionDAO().doDropTable();
+		
+		// Create all
+		getCompetitionDAO().doCreateTable();
 	}
 }

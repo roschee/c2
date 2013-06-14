@@ -1,6 +1,8 @@
-package ch.rmuerner.c2.db.dao;
+package ch.rmuerner.c2.db.dao.h2;
 
 import ch.rmuerner.c2.db.DBAdapter;
+import ch.rmuerner.c2.db.dao.AbstractDAO;
+import ch.rmuerner.c2.db.dao.CompetitorDAO;
 import ch.rmuerner.c2.db.dto.CompetitorDTO;
 
 public class H2CompetitorDAO extends AbstractDAO<CompetitorDTO> implements CompetitorDAO{
@@ -30,6 +32,7 @@ public class H2CompetitorDAO extends AbstractDAO<CompetitorDTO> implements Compe
 		}
 	}
 
+	// TODO Clean up H2CompetitorDAO
 	public H2CompetitorDAO(DBAdapter dbAdapter){
 		super(dbAdapter, Column.ID.getName());
 	}

@@ -1,5 +1,7 @@
 package ch.rmuerner.c2.db.dao;
 
+import ch.rmuerner.c2.db.dao.h2.H2DAOFactory;
+
 /**
  * 
  * @author Roger Muerner (roger.muerner@gmx.ch)

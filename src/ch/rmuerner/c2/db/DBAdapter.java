@@ -5,12 +5,11 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import ch.rmuerner.c2.db.dao.AbstractDAO;
-import ch.rmuerner.c2.db.dao.H2CompetitorDAO;
-import ch.rmuerner.c2.db.dto.AbstractDTO;
+import ch.rmuerner.c2.db.dao.h2.H2CompetitorDAO;
 
 public class DBAdapter {
 
+	// TODO Remove DBAdapter
 	private static DBAdapter instance = null;
 	private Connection dbConnection;
 	// Export in DBProperties
