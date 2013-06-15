@@ -10,7 +10,7 @@ import java.util.List;
 import ch.rmuerner.c2.db.dao.CompetitionDAO;
 import ch.rmuerner.c2.db.dto.CompetitionDTO;
 
-public class H2CompetitionDAO implements CompetitionDAO {
+public class H2CompetitionDAO extends H2DAO implements CompetitionDAO {
 
 	public static final String TABLE_NAME = "competition";
 
@@ -86,18 +86,20 @@ public class H2CompetitionDAO implements CompetitionDAO {
 		return queryBuilder.toString();
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public CompetitionDTO selectById(long id) {
-		List<CompetitionDTO> dtos = executeSelectQuery("SELECT * FROM " + TABLE_NAME
+		List<CompetitionDTO> dtos = (List<CompetitionDTO>) executeSelectQuery("SELECT * FROM " + TABLE_NAME
 				+ " WHERE " + Column.ID.name + "=" + id + ";");
 		if (dtos != null && !dtos.isEmpty())
 			return dtos.get(0);
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<CompetitionDTO> selectAll() {
-		return executeSelectQuery("SELECT * FROM " + TABLE_NAME
+		return (List<CompetitionDTO>) executeSelectQuery("SELECT * FROM " + TABLE_NAME
 				+ ";");
 	}
 
@@ -108,7 +110,8 @@ public class H2CompetitionDAO implements CompetitionDAO {
 	 *            ResultSet
 	 * @return List of CompetitionDTOs or null
 	 */
-	private List<CompetitionDTO> convertToDto(ResultSet result) {
+	@Override
+	protected List<CompetitionDTO> convertToDto(ResultSet result) {
 		try {
 			if (result != null && result.first()) {
 				List<CompetitionDTO> dtos = new ArrayList<CompetitionDTO>();
@@ -149,30 +152,6 @@ public class H2CompetitionDAO implements CompetitionDAO {
 			}
 		}
 		return -1;
-	}
-
-	private List<CompetitionDTO> executeSelectQuery(String query) {
-		Connection dbConnection = H2DAOFactory.createConnection();
-		if (dbConnection != null) {
-			try {
-				Statement stmt = dbConnection.createStatement();
-				// TODO Remove debug output
-				System.out.println("Execute query: " + query);
-				return convertToDto(stmt.executeQuery(query));
-			} catch (SQLException e) {
-				// TODO logging
-				e.printStackTrace();
-			} finally {
-				try {
-					dbConnection.close();
-				} catch (SQLException e) {
-					// TODO logging
-					e.printStackTrace();
-				}
-			}
-		}
-		return null;
-
 	}
 
 	@Override

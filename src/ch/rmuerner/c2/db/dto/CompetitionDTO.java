@@ -2,6 +2,11 @@ package ch.rmuerner.c2.db.dto;
 
 import java.sql.Date;
 
+/**
+ * DTO representing a competition
+ * 
+ * @author Roger Muerner (roger.muerner@gmx.ch)
+ */
 public class CompetitionDTO extends AbstractDTO {
 	
 	private String name;
