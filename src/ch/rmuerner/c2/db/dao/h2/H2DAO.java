@@ -5,24 +5,40 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
+import java.util.logging.Logger;
 
 import ch.rmuerner.c2.db.dto.AbstractDTO;
 
+/**
+ * H2DAO.
+ * 
+ * @author Roger Muerner (roger.muerner@gmx.ch)
+ * 
+ * @param <o>
+ */
 public abstract class H2DAO<o extends AbstractDTO> {
 
+	/** Logger */
+	private final static Logger LOGGER = Logger
+			.getLogger(H2DAO.class.getName());
+
 	/**
-	 * TODO Set comment
+	 * Converts a {@link ResultSet} into a list of dtos of type
+	 * {@link AbstractDTO}.
 	 * 
 	 * @param result
-	 * @return
+	 *            The {@link ResultSet} returned after query execution.
+	 * @return A {@link List} of DTOs of type {@link AbstractDTO}.
 	 */
 	abstract protected List<o> convertToDto(ResultSet result);
-	
+
 	/**
-	 * TODO Set comment or remove method
+	 * Creates the save- or update-query.
 	 * 
 	 * @param dto
-	 * @return
+	 *            The DTO of type {@link AbstractDTO} to save/update in the
+	 *            database.
+	 * @return Query with the save/update statement.
 	 */
 	abstract protected String getSaveOrUpdateQuery(o dto);
 
@@ -38,18 +54,17 @@ public abstract class H2DAO<o extends AbstractDTO> {
 		if (dbConnection != null) {
 			try {
 				Statement stmt = dbConnection.createStatement();
-				// TODO Remove debug output
-				System.out.println("Execute query: " + query);
+				LOGGER.info("Execute query: " + query);
 				return convertToDto(stmt.executeQuery(query));
 			} catch (SQLException e) {
-				// TODO logging
-				e.printStackTrace();
+				LOGGER.warning("SQLExeption (" + e.getErrorCode()
+						+ ") occured trying to execute query.");
 			} finally {
 				try {
 					dbConnection.close();
 				} catch (SQLException e) {
-					// TODO logging
-					e.printStackTrace();
+					LOGGER.warning("SQLExeption (" + e.getErrorCode()
+							+ ") occured while closing connection.");
 				}
 			}
 		}
@@ -68,8 +83,7 @@ public abstract class H2DAO<o extends AbstractDTO> {
 		if (dbConnection != null) {
 			try {
 				Statement stmt = dbConnection.createStatement();
-				// TODO Remove debug output
-				System.out.println("Execute query: " + query);
+				LOGGER.info("Execute query: " + query);
 				return stmt.executeUpdate(query);
 			} catch (SQLException e) {
 				// TODO logging

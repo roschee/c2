@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import ch.rmuerner.c2.db.dao.CategoryDAO;
 import ch.rmuerner.c2.db.dto.CategoryDTO;
@@ -11,15 +12,19 @@ import ch.rmuerner.c2.db.dto.CategoryDTO;
 /**
  * H2CategoryDAO. Implementation of {@link CategoryDAO}.
  * 
- * @version 
+ * @version V1.0
  * @author Roger Muerner (roger.muerner@gmx.ch)
  */
 public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 
-	/** Table name in database */
+	/** Logger */
+	private final static Logger LOGGER = Logger.getLogger(H2CategoryDAO.class
+			.getName());
+
+	/** Database table name */
 	private static final String TABLE_NAME = "category";
 
-	/** Represents the category in the database */
+	/** Database attributes of competition */
 	private enum Column {
 		ID("id", "INT PRIMARY KEY AUTO_INCREMENT(1,1) NOT NULL"), //
 		NAME("name", "VARCHAR(255) NOT NULL"), //
@@ -50,13 +55,6 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 		return executeSaveUpdateQuery(query);
 	}
 
-	/**
-	 * Creates the save- or update-query.
-	 * 
-	 * @param dto
-	 *            The {@link CategoryDTO} to save in the database
-	 * @return Query with the save/update statement
-	 */
 	@Override
 	protected String getSaveOrUpdateQuery(CategoryDTO dto) {
 		StringBuilder queryBuilder = new StringBuilder();
@@ -112,8 +110,7 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 
 	@Override
 	public List<CategoryDTO> selectAll() {
-		return executeSelectQuery("SELECT * FROM "
-				+ TABLE_NAME + ";");
+		return executeSelectQuery("SELECT * FROM " + TABLE_NAME + ";");
 	}
 
 	@Override
@@ -131,8 +128,8 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 				return dtos;
 			}
 		} catch (SQLException e) {
-			// TODO logging
-			e.printStackTrace();
+			LOGGER.warning("SQLExeption (" + e.getErrorCode()
+					+ ") occured while converting result to dto.");
 		}
 		return null;
 	}
@@ -156,11 +153,13 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 
 	@Override
 	public void doDropTable() {
+		LOGGER.info("Drop table: " + TABLE_NAME);
 		executeSaveUpdateQuery(getDropStatement());
 	}
 
 	@Override
 	public void doCreateTable() {
+		LOGGER.info("Create table: " + TABLE_NAME);
 		executeSaveUpdateQuery(getCreateStatement());
 	}
 }

@@ -4,10 +4,8 @@ import java.sql.Date;
 
 import junit.framework.TestCase;
 
-import org.h2.util.DateTimeUtils;
 import org.junit.Test;
 
-import ch.rmuerner.c2.db.dao.CompetitionDAO;
 import ch.rmuerner.c2.db.dao.DAOFactory;
 import ch.rmuerner.c2.db.dao.h2.H2CompetitionDAO;
 import ch.rmuerner.c2.db.dao.h2.H2DAOFactory;
@@ -31,7 +29,7 @@ public class H2DatabaseTest extends TestCase {
 				.getCompetitionDAO();
 		// Create First
 		CompetitionDTO dto1 = new CompetitionDTO(-1, //
-				"Schüler und Jugendturnier Spiez 2013", //
+				"Schï¿½ler und Jugendturnier Spiez 2013", //
 				"AC Halle Spiez", //
 				new Date(java.util.Date.UTC(2013, 5, 2, 0, 0, 0)));
 
@@ -40,7 +38,7 @@ public class H2DatabaseTest extends TestCase {
 		assertEquals(1, dao.selectAll().size());
 		
 		CompetitionDTO dtoRead = dao.selectById(1);
-		assertEquals("Schüler und Jugendturnier Spiez 2013", dtoRead.getName());
+		assertEquals("Schï¿½ler und Jugendturnier Spiez 2013", dtoRead.getName());
 		
 		// Create Second
 		CompetitionDTO dto2 = new CompetitionDTO(-1, //

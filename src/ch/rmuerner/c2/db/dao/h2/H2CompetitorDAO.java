@@ -1,22 +1,31 @@
 package ch.rmuerner.c2.db.dao.h2;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import ch.rmuerner.c2.db.dao.CompetitorDAO;
 import ch.rmuerner.c2.db.dto.CompetitorDTO;
 
 /**
- * H2CompetitorDAO.
+ * H2CompetitorDAO. Implementation of {@link CompetitorDAO}.
  * 
+ * @version V0.1
  * @author Roger Muerner (roger.muerner@gmx.ch)
  */
 public class H2CompetitorDAO extends H2DAO<CompetitorDTO> implements
 		CompetitorDAO {
-
+	
+	/** Logger */
+	private final static Logger LOGGER = Logger.getLogger(H2CompetitorDAO.class
+			.getName());
+	
+	/** Database table name */
 	public static final String TABLE_NAME = "competitor";
 
-	/** Represents a competitor in the database */
+	/** Database attributes of competitor */
 	private enum Column {
 		ID("id", "INT PRIMARY KEY AUTO_INCREMENT(1,1) NOT NULL"), //
 		IDENTNR("identNr", "VARCHAR(255) NOT NULL"), //
@@ -122,7 +131,25 @@ public class H2CompetitorDAO extends H2DAO<CompetitorDTO> implements
 
 	@Override
 	protected List<CompetitorDTO> convertToDto(ResultSet result) {
-		return executeSelectQuery("SELECT * FROM " + TABLE_NAME + ";");
+		try {
+			if (result != null && result.first()) {
+				List<CompetitorDTO> dtos = new ArrayList<CompetitorDTO>();
+				do {
+					dtos.add(new CompetitorDTO(result.getLong(Column.ID.name), //
+							result.getString(Column.IDENTNR.name), //
+							result.getString(Column.LASTNAME.name), //
+							result.getString(Column.FIRSTNAME.name), //
+							result.getString(Column.COUNTRY.name), //
+							result.getString(Column.ORGANISATION.name)) //
+					);
+				} while (result.next());
+				return dtos;
+			}
+		} catch (SQLException e) {
+			LOGGER.warning("SQLExeption (" + e.getErrorCode()
+					+ ") occured while converting result to dto.");
+		}
+		return null;
 	}
 
 	@Override
@@ -144,11 +171,13 @@ public class H2CompetitorDAO extends H2DAO<CompetitorDTO> implements
 
 	@Override
 	public void doDropTable() {
+		LOGGER.info("Drop table: " + TABLE_NAME);
 		executeSaveUpdateQuery(getDropStatement());
 	}
 
 	@Override
 	public void doCreateTable() {
+		LOGGER.info("Create table: " + TABLE_NAME);
 		executeSaveUpdateQuery(getCreateStatement());
 	}
 }

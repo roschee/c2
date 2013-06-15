@@ -4,16 +4,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import ch.rmuerner.c2.db.dao.TableauDAO;
 import ch.rmuerner.c2.db.dto.TableauDTO;
 
 public class H2TableauDAO extends H2DAO<TableauDTO> implements TableauDAO {
 
-	/** TODO comment */
+	/** Logger */
+	private final static Logger LOGGER = Logger.getLogger(H2TableauDAO.class
+			.getName());
+	
+	/** Database table name */
 	private static final String TABLE_NAME = "tableau";
 
-	/** TODO comment */
+	/** Database attributes of competition */
 	private enum Column {
 		ID("id", "INT PRIMARY KEY AUTO_INCREMENT(1,1) NOT NULL"), //
 		ENCOUNTERNR("encounterNr", "int NOT NULL"), //
@@ -135,8 +140,8 @@ public class H2TableauDAO extends H2DAO<TableauDTO> implements TableauDAO {
 				return dtos;
 			}
 		} catch (SQLException e) {
-			// TODO logging
-			e.printStackTrace();
+			LOGGER.warning("SQLExeption (" + e.getErrorCode()
+					+ ") occured while converting result to dto.");
 		}
 		return null;
 	}
@@ -159,13 +164,14 @@ public class H2TableauDAO extends H2DAO<TableauDTO> implements TableauDAO {
 	}
 	
 	@Override
-	public void doCreateTable() {
-		executeSaveUpdateQuery(getCreateStatement());
-	}
-	
-	@Override
 	public void doDropTable() {
+		LOGGER.info("Drop table: " + TABLE_NAME);
 		executeSaveUpdateQuery(getDropStatement());
-		
+	}
+
+	@Override
+	public void doCreateTable() {
+		LOGGER.info("Create table: " + TABLE_NAME);
+		executeSaveUpdateQuery(getCreateStatement());
 	}
 }
