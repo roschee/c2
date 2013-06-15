@@ -1,19 +1,24 @@
 package ch.rmuerner.c2.db.dao.h2;
 
-import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 import ch.rmuerner.c2.db.dao.CompetitionDAO;
 import ch.rmuerner.c2.db.dto.CompetitionDTO;
 
-public class H2CompetitionDAO extends H2DAO implements CompetitionDAO {
+/**
+ * H2CompetitionDAO.
+ * 
+ * @author Roger Muerner (roger.muerner@gmx.ch)
+ */
+public class H2CompetitionDAO extends H2DAO<CompetitionDTO> implements CompetitionDAO {
 
-	public static final String TABLE_NAME = "competition";
+	/** TODO comment */
+	private static final String TABLE_NAME = "competition";
 
+	/** TODO comment */
 	private enum Column {
 		ID("id", "INT PRIMARY KEY AUTO_INCREMENT(1,1) NOT NULL"), //
 		NAME("name", "VARCHAR(255) NOT NULL"), //
@@ -44,7 +49,8 @@ public class H2CompetitionDAO extends H2DAO implements CompetitionDAO {
 		return executeSaveUpdateQuery(query);
 	}
 
-	private String getSaveOrUpdateQuery(CompetitionDTO dto) {
+	@Override
+	protected String getSaveOrUpdateQuery(CompetitionDTO dto) {
 		StringBuilder queryBuilder = new StringBuilder();
 		if (dto.getId() == -1) {
 			// SetUp Query
@@ -86,25 +92,23 @@ public class H2CompetitionDAO extends H2DAO implements CompetitionDAO {
 		return queryBuilder.toString();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public CompetitionDTO selectById(long id) {
-		List<CompetitionDTO> dtos = (List<CompetitionDTO>) executeSelectQuery("SELECT * FROM " + TABLE_NAME
-				+ " WHERE " + Column.ID.name + "=" + id + ";");
+		List<CompetitionDTO> dtos = executeSelectQuery("SELECT * FROM "
+				+ TABLE_NAME + " WHERE " + Column.ID.name + "=" + id + ";");
 		if (dtos != null && !dtos.isEmpty())
 			return dtos.get(0);
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<CompetitionDTO> selectAll() {
-		return (List<CompetitionDTO>) executeSelectQuery("SELECT * FROM " + TABLE_NAME
+		return executeSelectQuery("SELECT * FROM " + TABLE_NAME
 				+ ";");
 	}
 
 	/**
-	 * 
+	 * TODO comment
 	 * 
 	 * @param result
 	 *            ResultSet
@@ -129,29 +133,6 @@ public class H2CompetitionDAO extends H2DAO implements CompetitionDAO {
 			e.printStackTrace();
 		}
 		return null;
-	}
-
-	private int executeSaveUpdateQuery(String query) {
-		Connection dbConnection = H2DAOFactory.createConnection();
-		if (dbConnection != null) {
-			try {
-				Statement stmt = dbConnection.createStatement();
-				// TODO Remove debug output
-				System.out.println("Execute query: " + query);
-				return stmt.executeUpdate(query);
-			} catch (SQLException e) {
-				// TODO logging
-				e.printStackTrace();
-			} finally {
-				try {
-					dbConnection.close();
-				} catch (SQLException e) {
-					// TODO logging
-					e.printStackTrace();
-				}
-			}
-		}
-		return -1;
 	}
 
 	@Override

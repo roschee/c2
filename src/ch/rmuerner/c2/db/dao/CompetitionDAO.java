@@ -4,6 +4,11 @@ import java.util.List;
 
 import ch.rmuerner.c2.db.dto.CompetitionDTO;
 
+/**
+ * CompetitionDAO
+ * 
+ * @author Roger Muerner (roger.muerner@gmx.ch)
+ */
 public interface CompetitionDAO {
 
 	/**

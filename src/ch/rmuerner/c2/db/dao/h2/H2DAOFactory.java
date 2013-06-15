@@ -38,27 +38,32 @@ public class H2DAOFactory extends DAOFactory {
 
 	@Override
 	public CategoryDAO getCategorieDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new H2CategoryDAO() {
+		};
 	}
 
 	@Override
 	public CompetitorDAO getCompetitorDAO() {
-		// TODO implement
-		return null;
+		return new H2CompetitorDAO();
 	}
 
 	@Override
 	public TableauDAO getTableauDAO() {
-		// TODO Auto-generated method stub
-		return null;
+		return new H2TableauDAO();
 	}
 	
+	@Override
 	public void initDatabase(){
 		// Drop all
+		getTableauDAO().doDropTable();
+		getCompetitorDAO().doDropTable();
+		getCategorieDAO().doDropTable();
 		getCompetitionDAO().doDropTable();
 		
 		// Create all
 		getCompetitionDAO().doCreateTable();
+		getCategorieDAO().doCreateTable();
+		getCompetitorDAO().doCreateTable();
+		getTableauDAO().doCreateTable();
 	}
 }
