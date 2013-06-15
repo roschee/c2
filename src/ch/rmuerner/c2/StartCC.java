@@ -16,7 +16,7 @@ public class StartCC {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO
+		// TODO start the application
 	}
 
 }

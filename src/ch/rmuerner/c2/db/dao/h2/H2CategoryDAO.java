@@ -135,6 +135,12 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 	}
 
 	@Override
+	public int delete(CategoryDTO dto) {
+		return executeSaveUpdateQuery("DELETE FROM " + TABLE_NAME + " WHERE "
+				+ Column.ID.name + "=" + dto.getId() + ";");
+	}
+
+	@Override
 	public String getCreateStatement() {
 		StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS "
 				+ TABLE_NAME + "(");

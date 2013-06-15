@@ -17,11 +17,11 @@ import ch.rmuerner.c2.db.dto.CompetitorDTO;
  */
 public class H2CompetitorDAO extends H2DAO<CompetitorDTO> implements
 		CompetitorDAO {
-	
+
 	/** Logger */
 	private final static Logger LOGGER = Logger.getLogger(H2CompetitorDAO.class
 			.getName());
-	
+
 	/** Database table name */
 	public static final String TABLE_NAME = "competitor";
 
@@ -72,7 +72,6 @@ public class H2CompetitorDAO extends H2DAO<CompetitorDTO> implements
 		return executeSelectQuery("SELECT * FROM " + TABLE_NAME + ";");
 	}
 
-	// TODO move this in super class??
 	@Override
 	protected String getSaveOrUpdateQuery(CompetitorDTO dto) {
 		StringBuilder queryBuilder = new StringBuilder();
@@ -150,6 +149,12 @@ public class H2CompetitorDAO extends H2DAO<CompetitorDTO> implements
 					+ ") occured while converting result to dto.");
 		}
 		return null;
+	}
+
+	@Override
+	public int delete(CompetitorDTO dto) {
+		return executeSaveUpdateQuery("DELETE FROM " + TABLE_NAME + " WHERE "
+				+ Column.ID.name + "=" + dto.getId() + ";");
 	}
 
 	@Override

@@ -15,7 +15,7 @@ public abstract class DAOFactory {
 
 	public abstract CompetitionDAO getCompetitionDAO();
 
-	public abstract CategoryDAO getCategorieDAO();
+	public abstract CategoryDAO getCategoryDAO();
 
 	public abstract CompetitorDAO getCompetitorDAO();
 

@@ -54,7 +54,7 @@ public class H2DAOFactory extends DAOFactory {
 	}
 
 	@Override
-	public CategoryDAO getCategorieDAO() {
+	public CategoryDAO getCategoryDAO() {
 		return new H2CategoryDAO() {
 		};
 	}
@@ -74,12 +74,12 @@ public class H2DAOFactory extends DAOFactory {
 		// Drop all
 		getTableauDAO().doDropTable();
 		getCompetitorDAO().doDropTable();
-		getCategorieDAO().doDropTable();
+		getCategoryDAO().doDropTable();
 		getCompetitionDAO().doDropTable();
 		
 		// Create all
 		getCompetitionDAO().doCreateTable();
-		getCategorieDAO().doCreateTable();
+		getCategoryDAO().doCreateTable();
 		getCompetitorDAO().doCreateTable();
 		getTableauDAO().doCreateTable();
 	}

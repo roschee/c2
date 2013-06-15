@@ -14,7 +14,7 @@ public class H2TableauDAO extends H2DAO<TableauDTO> implements TableauDAO {
 	/** Logger */
 	private final static Logger LOGGER = Logger.getLogger(H2TableauDAO.class
 			.getName());
-	
+
 	/** Database table name */
 	private static final String TABLE_NAME = "tableau";
 
@@ -26,7 +26,7 @@ public class H2TableauDAO extends H2DAO<TableauDTO> implements TableauDAO {
 		SECONDCOMPETITORID("secondCompetitorId", "int NOT NULL"), //
 		WINNERID("winnerId", "int NOT NULL"), //
 		NEXTENCOUNTERNR("nextEncounterNr", "int NOT NULL");
-		
+
 		private String name;
 
 		private String type;
@@ -44,13 +44,13 @@ public class H2TableauDAO extends H2DAO<TableauDTO> implements TableauDAO {
 			return type;
 		}
 	}
-	
+
 	@Override
 	public int saveOrUpdate(TableauDTO dto) {
 		String query = getSaveOrUpdateQuery(dto);
 		return executeSaveUpdateQuery(query);
 	}
-	
+
 	@Override
 	protected String getSaveOrUpdateQuery(TableauDTO dto) {
 		StringBuilder queryBuilder = new StringBuilder();
@@ -106,8 +106,7 @@ public class H2TableauDAO extends H2DAO<TableauDTO> implements TableauDAO {
 		}
 		return queryBuilder.toString();
 	}
-	
-	
+
 	@Override
 	public TableauDTO selectById(long id) {
 		List<TableauDTO> dtos = executeSelectQuery("SELECT * FROM "
@@ -116,13 +115,12 @@ public class H2TableauDAO extends H2DAO<TableauDTO> implements TableauDAO {
 			return dtos.get(0);
 		return null;
 	}
-	
+
 	@Override
 	public List<TableauDTO> selectAll() {
-		return executeSelectQuery("SELECT * FROM " + TABLE_NAME
-				+ ";");
+		return executeSelectQuery("SELECT * FROM " + TABLE_NAME + ";");
 	}
-	
+
 	@Override
 	protected List<TableauDTO> convertToDto(ResultSet result) {
 		try {
@@ -147,6 +145,12 @@ public class H2TableauDAO extends H2DAO<TableauDTO> implements TableauDAO {
 	}
 
 	@Override
+	public int delete(TableauDTO dto) {
+		return executeSaveUpdateQuery("DELETE FROM " + TABLE_NAME + " WHERE "
+				+ Column.ID.name + "=" + dto.getId() + ";");
+	}
+
+	@Override
 	public String getCreateStatement() {
 		StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS "
 				+ TABLE_NAME + "(");
@@ -157,12 +161,12 @@ public class H2TableauDAO extends H2DAO<TableauDTO> implements TableauDAO {
 		sb.append(");");
 		return sb.toString();
 	}
-	
+
 	@Override
 	public String getDropStatement() {
 		return "DROP TABLE IF EXISTS " + TABLE_NAME;
 	}
-	
+
 	@Override
 	public void doDropTable() {
 		LOGGER.info("Drop table: " + TABLE_NAME);

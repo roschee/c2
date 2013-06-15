@@ -86,14 +86,15 @@ public abstract class H2DAO<o extends AbstractDTO> {
 				LOGGER.info("Execute query: " + query);
 				return stmt.executeUpdate(query);
 			} catch (SQLException e) {
-				// TODO logging
+				LOGGER.warning("SQLExeption (" + e.getErrorCode()
+						+ ") occured while executing query.");
 				e.printStackTrace();
 			} finally {
 				try {
 					dbConnection.close();
 				} catch (SQLException e) {
-					// TODO logging
-					e.printStackTrace();
+					LOGGER.warning("SQLExeption (" + e.getErrorCode()
+							+ ") occured while closing connection.");
 				}
 			}
 		}

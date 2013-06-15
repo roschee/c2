@@ -134,6 +134,12 @@ public class H2CompetitionDAO extends H2DAO<CompetitionDTO> implements
 	}
 
 	@Override
+	public int delete(CompetitionDTO dto) {
+		return executeSaveUpdateQuery("DELETE FROM " + TABLE_NAME + " WHERE "
+				+ Column.ID.name + "=" + dto.getId() + ";");
+	}
+
+	@Override
 	public String getCreateStatement() {
 		StringBuilder sb = new StringBuilder("CREATE TABLE IF NOT EXISTS "
 				+ TABLE_NAME + "(");
