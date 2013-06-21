@@ -9,7 +9,6 @@ import ch.rmuerner.c2.db.dao.CategoryDAO;
 import ch.rmuerner.c2.db.dao.CompetitionDAO;
 import ch.rmuerner.c2.db.dao.CompetitorDAO;
 import ch.rmuerner.c2.db.dao.DAOFactory;
-import ch.rmuerner.c2.db.dao.TableauDAO;
 
 /**
  * H2DAOFactory.
@@ -65,14 +64,8 @@ public class H2DAOFactory extends DAOFactory {
 	}
 
 	@Override
-	public TableauDAO getTableauDAO() {
-		return new H2TableauDAO();
-	}
-	
-	@Override
 	public void initDatabase(){
 		// Drop all
-		getTableauDAO().doDropTable();
 		getCompetitorDAO().doDropTable();
 		getCategoryDAO().doDropTable();
 		getCompetitionDAO().doDropTable();
@@ -81,6 +74,5 @@ public class H2DAOFactory extends DAOFactory {
 		getCompetitionDAO().doCreateTable();
 		getCategoryDAO().doCreateTable();
 		getCompetitorDAO().doCreateTable();
-		getTableauDAO().doCreateTable();
 	}
 }

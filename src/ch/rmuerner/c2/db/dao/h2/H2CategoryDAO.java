@@ -29,7 +29,9 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 		ID("id", "INT PRIMARY KEY AUTO_INCREMENT(1,1) NOT NULL"), //
 		NAME("name", "VARCHAR(255) NOT NULL"), //
 		MODUS("modusId", "INT NOT NULL"), //
-		TABLEAUID("tableauId", "INT NOT NULL");
+		COMPETITIONID("competitionId", "INT NOT NULL"), //
+		TABLEAULINK("tableauLink", "VARCHAR(255) NOT NULL"), //
+		STATUS("status", "VARCHAR(255) NOT NULL");
 
 		private String name;
 
@@ -68,12 +70,18 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 			// name
 			columns.append(Column.NAME.name);
 			values.append("'" + dto.getName() + "'");
-			// location
+			// modus
 			columns.append(", " + Column.MODUS.name);
 			values.append(", " + dto.getModus());
-			// date
-			columns.append(", " + Column.TABLEAUID.name);
-			values.append(", " + dto.getTableauId());
+			// competition
+			columns.append(", " + Column.COMPETITIONID.name);
+			values.append(", " + dto.getCompetitionId());
+			// tableau
+			columns.append(", " + Column.TABLEAULINK.name);
+			values.append(", '" + dto.getTableauLink() + "'");
+			// statuts
+			columns.append(", " + Column.STATUS.name);
+			values.append(", '" + dto.getStatus() + "'");
 			// endline
 			columns.append(")");
 			values.append(")");
@@ -85,12 +93,18 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 			// name
 			queryBuilder.append(Column.NAME.name + //
 					"='" + dto.getName() + "', ");
-			// location
+			// modus
 			queryBuilder.append(Column.MODUS.name + //
 					"=" + dto.getModus() + ", ");
-			// date
-			queryBuilder.append(Column.TABLEAUID.name + //
-					"=" + dto.getTableauId());
+			// competition
+			queryBuilder.append(Column.COMPETITIONID.name + //
+					"=" + dto.getCompetitionId());
+			// tableau
+			queryBuilder.append(Column.TABLEAULINK.name + //
+					"=" + dto.getTableauLink());
+			// status
+			queryBuilder.append(Column.STATUS.name + //
+					"=" + dto.getStatus());
 			// endline
 			queryBuilder.append(" WHERE " + Column.ID.name + "=" + dto.getId()
 					+ ";");
@@ -122,7 +136,9 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 					dtos.add(new CategoryDTO(result.getLong(Column.ID.name), //
 							result.getString(Column.NAME.name), //
 							result.getLong(Column.MODUS.name), //
-							result.getLong(Column.TABLEAUID.name)) //
+							result.getLong(Column.COMPETITIONID.name), //
+							result.getString(Column.TABLEAULINK.name), //
+							result.getString(Column.STATUS.name)) //
 					);
 				} while (result.next());
 				return dtos;

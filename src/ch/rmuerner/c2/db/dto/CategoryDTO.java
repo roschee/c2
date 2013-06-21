@@ -9,13 +9,17 @@ public class CategoryDTO extends AbstractDTO {
 
 	private String name;
 	private long modus;
-	private long tableauId;
+	private long competitionId;
+	private String tableauLink;
+	private String status;
 	
-	public CategoryDTO(long id, String name, long modus, long tableauId){
+	public CategoryDTO(long id, String name, long modus, long competitionId, String tableauLink, String status){
 		setId(id);
 		this.name = name;
 		this.modus = modus;
-		this.tableauId = tableauId;
+		this.competitionId = competitionId;
+		this.tableauLink = tableauLink;
+		this.status = status;
 	}
 
 	public String getName() {
@@ -33,12 +37,28 @@ public class CategoryDTO extends AbstractDTO {
 	public void setModus(long modus) {
 		this.modus = modus;
 	}
-
-	public long getTableauId() {
-		return tableauId;
+	
+	public long getCompetitionId() {
+		return competitionId;
 	}
 
-	public void setTableauId(long tableauId) {
-		this.tableauId = tableauId;
+	public void setCompetitionId(long competitionId) {
+		this.competitionId = competitionId;
+	}
+
+	public String getTableauLink() {
+		return tableauLink;
+	}
+
+	public void setTableauLink(String tableauLink) {
+		this.tableauLink = tableauLink;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 }

@@ -19,8 +19,6 @@ public abstract class DAOFactory {
 
 	public abstract CompetitorDAO getCompetitorDAO();
 
-	public abstract TableauDAO getTableauDAO();
-
 	public static DAOFactory getDAOFactory(Database database) {
 
 		switch (database) {
