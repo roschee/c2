@@ -1,5 +1,6 @@
 package ch.rmuerner.c2.db.dto;
 
+
 /**
  * DTO representing a category
  * 
@@ -11,15 +12,15 @@ public class CategoryDTO extends AbstractDTO {
 	private long modus;
 	private long competitionId;
 	private String tableauLink;
-	private String status;
+	private State state;
 	
-	public CategoryDTO(long id, String name, long modus, long competitionId, String tableauLink, String status){
+	public CategoryDTO(long id, String name, long modus, long competitionId, String tableauLink, State state){
 		setId(id);
 		this.name = name;
 		this.modus = modus;
 		this.competitionId = competitionId;
 		this.tableauLink = tableauLink;
-		this.status = status;
+		this.state = state;
 	}
 
 	public String getName() {
@@ -54,11 +55,18 @@ public class CategoryDTO extends AbstractDTO {
 		this.tableauLink = tableauLink;
 	}
 
-	public String getStatus() {
-		return status;
+	public State getStatus() {
+		return state;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setStatus(State state) {
+		this.state = state;
+	}
+	
+	public enum State{
+		NEW, //
+		TABLEAU, //
+		RANKING, //
+		FINISHED;
 	}
 }

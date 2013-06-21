@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 
 import ch.rmuerner.c2.db.dao.CategoryDAO;
 import ch.rmuerner.c2.db.dto.CategoryDTO;
+import ch.rmuerner.c2.db.dto.CategoryDTO.State;
 
 /**
  * H2CategoryDAO. Implementation of {@link CategoryDAO}.
@@ -81,7 +82,7 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 			values.append(", '" + dto.getTableauLink() + "'");
 			// statuts
 			columns.append(", " + Column.STATUS.name);
-			values.append(", '" + dto.getStatus() + "'");
+			values.append(", '" + dto.getStatus().toString() + "'");
 			// endline
 			columns.append(")");
 			values.append(")");
@@ -98,13 +99,13 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 					"=" + dto.getModus() + ", ");
 			// competition
 			queryBuilder.append(Column.COMPETITIONID.name + //
-					"=" + dto.getCompetitionId());
+					"=" + dto.getCompetitionId() + ", ");
 			// tableau
 			queryBuilder.append(Column.TABLEAULINK.name + //
-					"=" + dto.getTableauLink());
+					"='" + dto.getTableauLink() + "', ");
 			// status
 			queryBuilder.append(Column.STATUS.name + //
-					"=" + dto.getStatus());
+					"='" + dto.getStatus().toString() + "'");
 			// endline
 			queryBuilder.append(" WHERE " + Column.ID.name + "=" + dto.getId()
 					+ ";");
@@ -129,25 +130,24 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 
 	@Override
 	protected List<CategoryDTO> convertToDto(ResultSet result) {
+		List<CategoryDTO> dtos = new ArrayList<CategoryDTO>();
 		try {
 			if (result != null && result.first()) {
-				List<CategoryDTO> dtos = new ArrayList<CategoryDTO>();
 				do {
 					dtos.add(new CategoryDTO(result.getLong(Column.ID.name), //
 							result.getString(Column.NAME.name), //
 							result.getLong(Column.MODUS.name), //
 							result.getLong(Column.COMPETITIONID.name), //
 							result.getString(Column.TABLEAULINK.name), //
-							result.getString(Column.STATUS.name)) //
+							State.valueOf(result.getString(Column.STATUS.name))) //
 					);
 				} while (result.next());
-				return dtos;
 			}
 		} catch (SQLException e) {
 			LOGGER.warning("SQLExeption (" + e.getErrorCode()
 					+ ") occured while converting result to dto.");
 		}
-		return null;
+		return dtos;
 	}
 
 	@Override
