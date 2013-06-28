@@ -1,6 +1,7 @@
 package ch.rmuerner.c2.db;
 
 import java.sql.Date;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -16,7 +17,7 @@ import ch.rmuerner.c2.db.dto.CategoryDTO.State;
 import ch.rmuerner.c2.db.dto.CompetitionDTO;
 
 public class H2DatabaseTest extends TestCase {
-	
+
 	@Before
 	public void testSetUp() {
 		H2DAOFactory h2DAOFactory = (H2DAOFactory) DAOFactory
@@ -36,7 +37,7 @@ public class H2DatabaseTest extends TestCase {
 		CompetitionDTO dto1 = new CompetitionDTO(-1, //
 				"Schüler und Jugendturnier Spiez 2013", //
 				"AC Halle Spiez", //
-				new Date(java.util.Date.UTC(2013, 5, 2, 0, 0, 0)));
+				Date.valueOf("2013-06-01"));
 
 		int result1 = dao.saveOrUpdate(dto1);
 		assertEquals(1, result1);
@@ -49,7 +50,7 @@ public class H2DatabaseTest extends TestCase {
 		CompetitionDTO dto2 = new CompetitionDTO(-1, //
 				"OJEM", //
 				"Saanen", //
-				new Date(java.util.Date.UTC(2013, 9, 10, 0, 0, 0)));
+				Date.valueOf("2013-06-01"));
 
 		int result2 = dao.saveOrUpdate(dto2);
 		assertEquals(1, result2);
@@ -106,19 +107,30 @@ public class H2DatabaseTest extends TestCase {
 		// Udate
 		dtoRead2.setName("Schüler A -26kg");
 		dao.saveOrUpdate(dtoRead2);
-		
+
 		CategoryDTO dtoRead2New = dao.selectById(dtoRead2.getId());
 		assertEquals("Schüler A -26kg", dtoRead2New.getName());
-		
+
 		// Delete First
 		CategoryDTO dto3 = dao.selectById(1);
 		int result3 = dao.delete(dto3);
 		assertEquals(1, result3);
 		assertEquals(1, dao.selectAll().size());
 	}
-	
+
 	@Test
 	public void testCompetitor() {
+
+	}
+	
+	@Test
+	public void testPrintAll(){
+		H2DAOFactory h2DAOFactory = (H2DAOFactory) DAOFactory
+				.getDAOFactory(DAOFactory.Database.H2);
 		
+		List<CompetitionDTO> allCompetitions = h2DAOFactory.getCompetitionDAO().selectAll();
+		for (CompetitionDTO competitionDTO : allCompetitions) {
+			System.out.println(competitionDTO.toString());
+		}
 	}
 }

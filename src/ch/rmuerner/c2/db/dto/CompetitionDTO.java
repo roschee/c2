@@ -8,12 +8,12 @@ import java.sql.Date;
  * @author Roger Muerner (roger.muerner@gmx.ch)
  */
 public class CompetitionDTO extends AbstractDTO {
-	
+
 	private String name;
 	private String location;
 	private Date date;
-	
-	public CompetitionDTO(long id, String name, String location, Date date){
+
+	public CompetitionDTO(long id, String name, String location, Date date) {
 		setId(id);
 		this.name = name;
 		this.location = location;
@@ -42,5 +42,11 @@ public class CompetitionDTO extends AbstractDTO {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	@Override
+	public String toString() {
+		return "CompetitionDTO (Name: " + getName() + ", Location: "
+				+ getLocation() + ", Date: " + getDate().toString() + ")";
 	}
 }
