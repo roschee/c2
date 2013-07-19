@@ -6,20 +6,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-import ch.rmuerner.c2.db.dao.CompetitorDAO;
-import ch.rmuerner.c2.db.dto.CompetitorDTO;
+import ch.rmuerner.c2.db.dao.AthleteDAO;
+import ch.rmuerner.c2.db.dto.AthleteDTO;
 
 /**
- * H2CompetitorDAO. Implementation of {@link CompetitorDAO}.
+ * H2CompetitorDAO. Implementation of {@link AthleteDAO}.
  * 
  * @version V0.1
  * @author Roger Muerner (roger.muerner@gmx.ch)
  */
-public class H2CompetitorDAO extends H2DAO<CompetitorDTO> implements
-		CompetitorDAO {
+public class H2AthleteDAO extends H2DAO<AthleteDTO> implements
+		AthleteDAO {
 
 	/** Logger */
-	private final static Logger LOGGER = Logger.getLogger(H2CompetitorDAO.class
+	private final static Logger LOGGER = Logger.getLogger(H2AthleteDAO.class
 			.getName());
 
 	/** Database table name */
@@ -53,14 +53,14 @@ public class H2CompetitorDAO extends H2DAO<CompetitorDTO> implements
 	}
 
 	@Override
-	public int saveOrUpdate(CompetitorDTO dto) {
+	public int saveOrUpdate(AthleteDTO dto) {
 		String query = getSaveOrUpdateQuery(dto);
 		return executeSaveUpdateQuery(query);
 	}
 
 	@Override
-	public CompetitorDTO selectById(long id) {
-		List<CompetitorDTO> dtos = executeSelectQuery("SELECT * FROM "
+	public AthleteDTO selectById(long id) {
+		List<AthleteDTO> dtos = executeSelectQuery("SELECT * FROM "
 				+ TABLE_NAME + " WHERE " + Column.ID.name + "=" + id + ";");
 		if (dtos != null && !dtos.isEmpty())
 			return dtos.get(0);
@@ -68,12 +68,12 @@ public class H2CompetitorDAO extends H2DAO<CompetitorDTO> implements
 	}
 
 	@Override
-	public List<CompetitorDTO> selectAll() {
+	public List<AthleteDTO> selectAll() {
 		return executeSelectQuery("SELECT * FROM " + TABLE_NAME + ";");
 	}
 
 	@Override
-	protected String getSaveOrUpdateQuery(CompetitorDTO dto) {
+	protected String getSaveOrUpdateQuery(AthleteDTO dto) {
 		StringBuilder queryBuilder = new StringBuilder();
 		// Save
 		if (dto.getId() == -1) {
@@ -129,12 +129,12 @@ public class H2CompetitorDAO extends H2DAO<CompetitorDTO> implements
 	}
 
 	@Override
-	protected List<CompetitorDTO> convertToDto(ResultSet result) {
+	protected List<AthleteDTO> convertToDto(ResultSet result) {
 		try {
 			if (result != null && result.first()) {
-				List<CompetitorDTO> dtos = new ArrayList<CompetitorDTO>();
+				List<AthleteDTO> dtos = new ArrayList<AthleteDTO>();
 				do {
-					dtos.add(new CompetitorDTO(result.getLong(Column.ID.name), //
+					dtos.add(new AthleteDTO(result.getLong(Column.ID.name), //
 							result.getString(Column.IDENTNR.name), //
 							result.getString(Column.LASTNAME.name), //
 							result.getString(Column.FIRSTNAME.name), //
@@ -152,7 +152,7 @@ public class H2CompetitorDAO extends H2DAO<CompetitorDTO> implements
 	}
 
 	@Override
-	public int delete(CompetitorDTO dto) {
+	public int delete(AthleteDTO dto) {
 		return executeSaveUpdateQuery("DELETE FROM " + TABLE_NAME + " WHERE "
 				+ Column.ID.name + "=" + dto.getId() + ";");
 	}

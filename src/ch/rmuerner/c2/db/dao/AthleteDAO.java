@@ -1,12 +1,12 @@
 package ch.rmuerner.c2.db.dao;
 
-import ch.rmuerner.c2.db.dto.CompetitorDTO;
+import ch.rmuerner.c2.db.dto.AthleteDTO;
 
 /**
  * Marker interface for competitor.
  * 
  * @author Roger Muerner (roger.muerner@gmx.ch)
  */
-public interface CompetitorDAO extends C2DAO<CompetitorDTO> {
+public interface AthleteDAO extends C2DAO<AthleteDTO> {
 	//
 }

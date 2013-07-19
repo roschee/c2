@@ -119,7 +119,7 @@ public class H2DatabaseTest extends TestCase {
 	}
 
 	@Test
-	public void testCompetitor() {
+	public void testAthlete() {
 
 	}
 	

@@ -17,7 +17,7 @@ public abstract class DAOFactory {
 
 	public abstract CategoryDAO getCategoryDAO();
 
-	public abstract CompetitorDAO getCompetitorDAO();
+	public abstract AthleteDAO getAthleteDAO();
 
 	public static DAOFactory getDAOFactory(Database database) {
 

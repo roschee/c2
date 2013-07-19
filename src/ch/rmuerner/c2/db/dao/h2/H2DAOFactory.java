@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 import ch.rmuerner.c2.db.dao.CategoryDAO;
 import ch.rmuerner.c2.db.dao.CompetitionDAO;
-import ch.rmuerner.c2.db.dao.CompetitorDAO;
+import ch.rmuerner.c2.db.dao.AthleteDAO;
 import ch.rmuerner.c2.db.dao.DAOFactory;
 import ch.rmuerner.c2.db.dto.CategoryDTO;
 import ch.rmuerner.c2.db.dto.CategoryDTO.State;
@@ -63,22 +63,22 @@ public class H2DAOFactory extends DAOFactory {
 	}
 
 	@Override
-	public CompetitorDAO getCompetitorDAO() {
-		return new H2CompetitorDAO();
+	public AthleteDAO getAthleteDAO() {
+		return new H2AthleteDAO();
 	}
 
 	@Override
 	public void initDatabase() {
 		LOGGER.info("********* START Initialize Database H2 *********");
 		// Drop all
-		getCompetitorDAO().doDropTable();
+		getAthleteDAO().doDropTable();
 		getCategoryDAO().doDropTable();
 		getCompetitionDAO().doDropTable();
 
 		// Create all
 		getCompetitionDAO().doCreateTable();
 		getCategoryDAO().doCreateTable();
-		getCompetitorDAO().doCreateTable();
+		getAthleteDAO().doCreateTable();
 		LOGGER.info("********* END Initialize Database H2 *********");
 	}
 

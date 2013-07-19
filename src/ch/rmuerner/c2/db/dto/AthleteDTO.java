@@ -5,7 +5,7 @@ package ch.rmuerner.c2.db.dto;
  * 
  * @author Roger Muerner (roger.muerner@gmx.ch)
  */
-public class CompetitorDTO extends AbstractDTO {
+public class AthleteDTO extends AbstractDTO {
 
 	private String identNr;
 	private String lastName;
@@ -13,7 +13,7 @@ public class CompetitorDTO extends AbstractDTO {
 	private String country;
 	private String organisation;
 
-	public CompetitorDTO(long id, String identNr, String lastName,
+	public AthleteDTO(long id, String identNr, String lastName,
 			String firstName, String country, String organsation) {
 		setId(id);
 		this.identNr = identNr;
