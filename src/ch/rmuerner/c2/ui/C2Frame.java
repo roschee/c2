@@ -13,12 +13,12 @@ import ch.rmuerner.c2.ui.components.TabbedPane;
  * 
  * @author Roger Muerner (roger.muerner@gmx.ch)
  */
-public class StartC2Frame extends JFrame {
+public class C2Frame extends JFrame {
 
 	/** serial version id */
 	private static final long serialVersionUID = 93950361715461852L;
 
-	public StartC2Frame() {
+	public C2Frame() {
 		super("C2");
 
 		this.setSize(1024, 768);

@@ -22,9 +22,9 @@ public class TabbedPane extends JPanel {
 
 		tabbedPane.addTab("Category", new TabCategory());
 
-		tabbedPane.addTab("Competitor", new TabCompetitor());
+		tabbedPane.addTab("Athlete", new TabAthlete());
 
-		tabbedPane.addTab("Add Competitor", new TabAddCompetitor());
+		tabbedPane.addTab("Add Athlete", new TabAddAthlete());
 
 		add(tabbedPane);
 

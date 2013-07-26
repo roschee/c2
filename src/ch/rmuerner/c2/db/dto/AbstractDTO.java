@@ -1,6 +1,7 @@
 package ch.rmuerner.c2.db.dto;
 
 
+
 public abstract class AbstractDTO {
 
 	private long id = -1L;
