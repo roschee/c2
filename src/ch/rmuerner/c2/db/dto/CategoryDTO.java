@@ -1,6 +1,7 @@
 package ch.rmuerner.c2.db.dto;
 
 
+
 /**
  * DTO representing a category
  * 

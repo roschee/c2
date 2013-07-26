@@ -26,7 +26,7 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 	private static final String TABLE_NAME = "category";
 
 	/** Database attributes of competition */
-	private enum Column {
+	public enum Column {
 		ID("id", "INT PRIMARY KEY AUTO_INCREMENT(1,1) NOT NULL"), //
 		NAME("name", "VARCHAR(255) NOT NULL"), //
 		MODUS("modusId", "INT NOT NULL"), //
@@ -43,11 +43,11 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 			this.type = type;
 		}
 
-		private String getName() {
+		public String getName() {
 			return name;
 		}
 
-		private String getType() {
+		public String getType() {
 			return type;
 		}
 	}
@@ -152,8 +152,9 @@ public class H2CategoryDAO extends H2DAO<CategoryDTO> implements CategoryDAO {
 
 	@Override
 	public int delete(CategoryDTO dto) {
-		return executeSaveUpdateQuery("DELETE FROM " + TABLE_NAME + " WHERE "
+		int affectedRowsCount = executeSaveUpdateQuery("DELETE FROM " + TABLE_NAME + " WHERE "
 				+ Column.ID.name + "=" + dto.getId() + ";");
+		return affectedRowsCount;
 	}
 
 	@Override

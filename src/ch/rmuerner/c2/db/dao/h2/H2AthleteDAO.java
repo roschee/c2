@@ -10,7 +10,7 @@ import ch.rmuerner.c2.db.dao.AthleteDAO;
 import ch.rmuerner.c2.db.dto.AthleteDTO;
 
 /**
- * H2CompetitorDAO. Implementation of {@link AthleteDAO}.
+ * H2AthleteDAO. Implementation of {@link AthleteDAO}.
  * 
  * @version V0.1
  * @author Roger Muerner (roger.muerner@gmx.ch)
@@ -23,9 +23,9 @@ public class H2AthleteDAO extends H2DAO<AthleteDTO> implements
 			.getName());
 
 	/** Database table name */
-	public static final String TABLE_NAME = "competitor";
+	public static final String TABLE_NAME = "athlete";
 
-	/** Database attributes of competitor */
+	/** Database attributes of athlete */
 	private enum Column {
 		ID("id", "INT PRIMARY KEY AUTO_INCREMENT(1,1) NOT NULL"), //
 		IDENTNR("identNr", "VARCHAR(255) NOT NULL"), //

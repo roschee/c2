@@ -5,7 +5,7 @@ package ch.rmuerner.c2;
 
 import javax.swing.JFrame;
 
-import ch.rmuerner.c2.ui.StartC2Frame;
+import ch.rmuerner.c2.ui.C2Frame;
 
 /**
  * Starter class to start CompetitionControl application
@@ -24,9 +24,9 @@ public class StartC2 extends JFrame {
 	 */
 	public static void main(String[] args) {
 		/*
-		 * Erzeugung eines neuen Frames mit dem Titel "Beispiel JFrame "
+		 * Erzeugung eines neuen Frames C2Frame
 		 */
-		JFrame meinFrame = new StartC2Frame();
+		JFrame startC2Frame = new C2Frame();
 	}
 
 }

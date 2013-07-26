@@ -4,16 +4,16 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 /**
- * TabCompetitor.
+ * TabAthelete.
  * 
  * @author Roger Muerner (roger.muerner@gmx.ch)
  */
-public class TabCompetitor extends JPanel{
+public class TabAthlete extends JPanel{
 
 	/** serial version id */
 	private static final long serialVersionUID = -7153239945592565973L;
 	
-	public TabCompetitor(){
-		this.add(new JLabel("Competitor"));
+	public TabAthlete(){
+		this.add(new JLabel("Athlete"));
 	}
 }

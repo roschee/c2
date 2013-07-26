@@ -19,7 +19,7 @@ import ch.rmuerner.c2.db.dto.CompetitionDTO;
  * 
  * @author Roger Muerner (roger.muerner@gmx.ch)
  */
-public class TabAddCompetitor extends JPanel implements ActionListener {
+public class TabAddAthlete extends JPanel implements ActionListener {
 
 	JTextField nameTextField = new JTextField();
 	JTextField locationTextField = new JTextField();
@@ -29,7 +29,7 @@ public class TabAddCompetitor extends JPanel implements ActionListener {
 	/** serial version ui */
 	private static final long serialVersionUID = -9223319867902329553L;
 
-	public TabAddCompetitor() {
+	public TabAddAthlete() {
 		GridLayout layout = new GridLayout(4, 2, 5, 5);
 		this.setLayout(layout);
 
