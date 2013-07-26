@@ -1,5 +1,6 @@
 package ch.rmuerner.c2.db.dto;
 
+import java.sql.Date;
 
 /**
  * DTO representing a competitor
@@ -11,17 +12,22 @@ public class AthleteDTO extends AbstractDTO {
 	private String identNr;
 	private String lastName;
 	private String firstName;
-	private String country;
+	private Date dateOfBirth;
+	private float weight;
 	private String organisation;
+	private String country;
 
 	public AthleteDTO(long id, String identNr, String lastName,
-			String firstName, String country, String organsation) {
+			String firstName, Date dateOfBirth, float weight,
+			String organsation, String country) {
 		setId(id);
 		this.identNr = identNr;
 		this.lastName = lastName;
 		this.firstName = firstName;
-		this.country = country;
+		this.dateOfBirth = dateOfBirth;
+		this.weight = weight;
 		this.organisation = organsation;
+		this.country = country;
 	}
 
 	public String getIdentNr() {
@@ -48,19 +54,35 @@ public class AthleteDTO extends AbstractDTO {
 		this.firstName = firstName;
 	}
 
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public float getWeight() {
+		return weight;
+	}
+
+	public void setWeight(float weight) {
+		this.weight = weight;
+	}
+
+	public String getOrganisation() {
+		return organisation;
+	}
+	
+	public void setOrganisation(String organisation) {
+		this.organisation = organisation;
+	}
+
 	public String getCountry() {
 		return country;
 	}
 
 	public void setCountry(String country) {
 		this.country = country;
-	}
-
-	public String getOrganisation() {
-		return organisation;
-	}
-
-	public void setOrganisation(String organisation) {
-		this.organisation = organisation;
 	}
 }

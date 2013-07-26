@@ -31,8 +31,11 @@ public class H2AthleteDAO extends H2DAO<AthleteDTO> implements
 		IDENTNR("identNr", "VARCHAR(255) NOT NULL"), //
 		LASTNAME("name", "VARCHAR(255) NOT NULL"), //
 		FIRSTNAME("firstname", "VARCHAR(255) NOT NULL"), //
+		DATEOFBIRTH("dateOfBirth", "DATE NOT NULL"),
+		WEIGHT("weight", "FLOAT NOT NULL"),
+		ORGANISATION("organisation", "VARCHAR(255) NOT NULL"), //
 		COUNTRY("country", "VARCHAR(255) NOT NULL"), //
-		ORGANISATION("organisation", "VARCHAR(255) NOT NULL");
+;
 
 		private String name;
 
@@ -91,12 +94,18 @@ public class H2AthleteDAO extends H2DAO<AthleteDTO> implements
 			// firstname
 			columns.append(", " + Column.FIRSTNAME.name);
 			values.append(", '" + dto.getFirstName() + "'");
-			// country
-			columns.append(", " + Column.COUNTRY.name);
-			values.append(", '" + dto.getCountry() + "'");
+			// date of birth
+			columns.append(", " + Column.DATEOFBIRTH.name);
+			values.append(", '" + dto.getDateOfBirth() + "'");
+			// weight
+			columns.append(", " + Column.WEIGHT.name);
+			values.append(", '" + dto.getWeight() + "'");
 			// organisation
 			columns.append(", " + Column.ORGANISATION.name);
 			values.append(", '" + dto.getOrganisation() + "'");
+			// country
+			columns.append(", " + Column.COUNTRY.name);
+			values.append(", '" + dto.getCountry() + "'");
 			// endline
 			columns.append(")");
 			values.append(")");
@@ -114,12 +123,18 @@ public class H2AthleteDAO extends H2DAO<AthleteDTO> implements
 			// firstname
 			queryBuilder.append(Column.FIRSTNAME.name + //
 					"='" + dto.getFirstName() + "', ");
-			// country
-			queryBuilder.append(Column.COUNTRY.name + //
-					"='" + dto.getCountry() + "', ");
+			// date of birth
+			queryBuilder.append(Column.DATEOFBIRTH.name + //
+					"='" + dto.getDateOfBirth() + "', ");
+			// weight
+			queryBuilder.append(Column.WEIGHT.name + //
+					"='" + dto.getWeight() + "', ");
 			// organisation
 			queryBuilder.append(Column.ORGANISATION.name + //
-					"='" + dto.getOrganisation() + "'");
+					"='" + dto.getOrganisation() + "', ");
+			// country
+			queryBuilder.append(Column.COUNTRY.name + //
+					"='" + dto.getCountry() + "'");
 			// endline
 			queryBuilder.append(" WHERE " + Column.ID.name + "=" + dto.getId()
 					+ ";");
@@ -138,8 +153,10 @@ public class H2AthleteDAO extends H2DAO<AthleteDTO> implements
 							result.getString(Column.IDENTNR.name), //
 							result.getString(Column.LASTNAME.name), //
 							result.getString(Column.FIRSTNAME.name), //
-							result.getString(Column.COUNTRY.name), //
-							result.getString(Column.ORGANISATION.name)) //
+							result.getDate(Column.DATEOFBIRTH.name), //
+							result.getFloat(Column.WEIGHT.name), //
+							result.getString(Column.ORGANISATION.name), //
+							result.getString(Column.COUNTRY.name)) //
 					);
 				} while (result.next());
 				return dtos;
